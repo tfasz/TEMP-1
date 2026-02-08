@@ -110,8 +110,8 @@ number:
     id: dallas_temperature_offset
     restore_value: true
     initial_value: 0.0
-    min_value: -70.0
-    max_value: 70.0
+    min_value: -98.0
+    max_value: 98.0
     entity_category: "CONFIG"
     unit_of_measurement: "°C"
     optimistic: true
@@ -139,8 +139,8 @@ number:
     id: ntc_temperature_offset
     restore_value: true
     initial_value: 0.0
-    min_value: -70.0
-    max_value: 70.0
+    min_value: -99.0
+    max_value: 99.0
     entity_category: "CONFIG"
     unit_of_measurement: "°C"
     optimistic: true
