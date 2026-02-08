@@ -268,7 +268,7 @@ sensor:
 
   - platform: dallas_temp
     name: "Temperature Probe"
-    update_interval: 60s
+    update_interval: 15s
     id: temp_probe
     index: 0
     filters:
@@ -287,12 +287,42 @@ sensor:
 
           return x - id(dallas_temperature_offset).state;
     on_value:
-      if:
+      - if:
         condition:
           switch.is_on: alarm_outside_temp_range
         then:
           - lambda: |-
               id(tempRangeCheck).execute();
+      - lambda: |-
+          // CONFIGURATION
+          float min_temp = 18.0; 
+          float mid_temp = 24.0; 
+          float max_temp = 30.0; 
+
+          auto call = id(rgb_light).turn_on();
+          call.set_transition_length(2000); 
+          
+          float r = 0.0, g = 0.0, b = 0.0;
+
+          if (x <= min_temp) {
+            b = 1.0;
+          } 
+          else if (x >= max_temp) {
+            r = 1.0;
+          } 
+          else if (x < mid_temp) {
+            float ratio = (x - min_temp) / (mid_temp - min_temp);
+            b = 1.0 - ratio; 
+            g = ratio;       
+          } 
+          else {
+            float ratio = (x - mid_temp) / (max_temp - mid_temp);
+            g = 1.0 - ratio; 
+            r = ratio;       
+          }
+
+          call.set_rgb(r, g, b);
+          call.perform();
   - platform: dallas_temp
     name: "Temperature Probe 2"
     update_interval: 60s
