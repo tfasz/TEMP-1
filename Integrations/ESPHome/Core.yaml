@@ -287,13 +287,13 @@ sensor:
 
           return x - id(dallas_temperature_offset).state;
     on_value:
-      - if:
+      if:
         condition:
           switch.is_on: alarm_outside_temp_range
         then:
           - lambda: |-
               id(tempRangeCheck).execute();
-      
+
   - platform: dallas_temp
     name: "Temperature Probe 2"
     update_interval: 60s
