@@ -295,9 +295,9 @@ sensor:
               id(tempRangeCheck).execute();
       - lambda: |-
           // CONFIGURATION
-          float min_temp = 18.0; 
-          float mid_temp = 24.0; 
-          float max_temp = 30.0; 
+          float min_temp = 15.0; 
+          float mid_temp = 52.0; 
+          float max_temp = 90.0; 
 
           auto call = id(rgb_light).turn_on();
           call.set_transition_length(2000); 
